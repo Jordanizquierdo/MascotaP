@@ -9,8 +9,9 @@ def index(request):
     return render(request,'app1/index.html')
 
 
+
 def agregarMascota(request):
-    form = MascotaM()
+    form = FormMascota()
     if request.method == 'POST':
         form = FormMascota(request.POST)
         if form.is_valid():
@@ -25,7 +26,7 @@ def listadoMascotas(request):
     data = {'mascotas':mascotas}
     return render(request,'app1/mascotas.html',data)
 
-def actualizarMascota(request):
+def actualizarMascota(request,id):
     mascota = MascotaM.objects.get(id = id)
     form = FormMascota (instance=mascota)
     if request.method == 'POST':
@@ -37,7 +38,7 @@ def actualizarMascota(request):
     return render(request,'app1/agregar.html',data)
 
 
-def eliminarMascota (request):
+def eliminarMascota (request,id):
     mascota = MascotaM.objects.get(id = id)
     mascota.delete()
     return redirect('/mascotas')

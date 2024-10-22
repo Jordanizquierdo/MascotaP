@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="alert alert-info">Listado Proyectos</div>
+    <form method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="agregar mascota" class="btn btn-info">
+    </form>
+    <a href="../mascotas" class="btn btn-info">Mascotas</a>
     
 </body>
 </html>
