@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from app1.forms import FormMascota
 from app1.models import MascotaM
 
@@ -25,8 +25,19 @@ def listadoMascotas(request):
     data = {'mascotas':mascotas}
     return render(request,'app1/mascotas.html',data)
 
+def actualizarMascota(request):
+    mascota = MascotaM.objects.get(id = id)
+    form = FormMascota (instance=mascota)
+    if request.method == 'POST':
+        form = FormMascota(request.POST, instance=mascota)
+        if form.is_valid():
+            form.save()
+        return index(request)
+    data = {'form':form}
+    return render(request,'app1/agregar.html',data)
 
-# def actualizarMascota(request):
 
-
-# def eliminarMascota (request):
+def eliminarMascota (request):
+    mascota = MascotaM.objects.get(id = id)
+    mascota.delete()
+    return redirect('/mascotas')
